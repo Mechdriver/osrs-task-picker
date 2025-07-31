@@ -5,8 +5,12 @@ import type { WheelData } from "react-custom-roulette/dist/components/Wheel/type
 
 function App() {
   const [spinning, setSpinning] = useState<boolean>(false);
+  const [winningNdx, setWinningNdx] = useState<number>(0);
 
-  const onSpinClick = () => {
+  const onSpinClick = (dataLength: number) => {
+    const ndx = Math.floor(Math.random() * dataLength);
+    setWinningNdx(ndx);
+
     setSpinning(true);
   };
 
@@ -29,7 +33,7 @@ function App() {
         <div className="p-2">
           <Wheel
             mustStartSpinning={spinning}
-            prizeNumber={0}
+            prizeNumber={winningNdx}
             data={petData}
             backgroundColors={[
               "#1F2056",
@@ -50,7 +54,7 @@ function App() {
         </div>
         <button
           className="mt-4 px-4 py-2 bg-yellow-800 text-white rounded hover:bg-yellow-900"
-          onClick={onSpinClick}
+          onClick={() => onSpinClick(petData.length)}
         >
           Spin the Wheel
         </button>
