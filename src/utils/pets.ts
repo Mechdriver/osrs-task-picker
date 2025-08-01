@@ -7,18 +7,46 @@ import Butch from "../assets/pets/Butch_small_(follower).png";
 type PetType = {
   name: string;
   uri: string;
+  petSource: string;
+  namePrefix?: string;
   dropRate?: string;
   imgSizeMulti?: number;
 };
 
+const WIKI_BASE_URL = "https://oldschool.runescape.wiki/w";
+
 export const BOSS_PETS: PetType[] = [
-  { name: "Abyssal orphan", uri: AbbyOrphan, imgSizeMulti: 0.9 },
-  { name: "Baby mole", uri: BabyMole, imgSizeMulti: 0.7 },
-  { name: "Baron", uri: Baron, imgSizeMulti: 0.7 },
-  { name: "Bran", uri: Bran },
-  { name: "Butch", uri: Butch },
+  {
+    name: "Abyssal orphan",
+    namePrefix: "the",
+    uri: AbbyOrphan,
+    petSource: "unsired",
+    dropRate: "1/2,560",
+    imgSizeMulti: 0.9,
+  },
+  {
+    name: "Baby mole",
+    namePrefix: "the",
+    uri: BabyMole,
+    petSource: "Giant Mole",
+    dropRate: "1/3,000",
+    imgSizeMulti: 0.7,
+  },
+  {
+    name: "Baron",
+    uri: Baron,
+    petSource: "Duke Sucellus",
+    dropRate: "1/2,500",
+    imgSizeMulti: 0.7,
+  },
+  // { name: "Bran", uri: Bran },
+  // { name: "Butch", uri: Butch },
 ];
 
 export const SKILLING_PETS: PetType[] = [];
 
 export const OTHER_PETS: PetType[] = [];
+
+export const convertToWikiLink = (name: string) => {
+  return `${WIKI_BASE_URL}/${name.split(" ").join("_")}`;
+};

@@ -8,7 +8,12 @@ import {
 } from "@/components/ui/dialog";
 
 import { Wheel } from "react-custom-roulette";
-import { BOSS_PETS, OTHER_PETS, SKILLING_PETS } from "./utils/pets";
+import {
+  BOSS_PETS,
+  convertToWikiLink,
+  OTHER_PETS,
+  SKILLING_PETS,
+} from "./utils/pets";
 import type { WheelData } from "react-custom-roulette/dist/components/Wheel/types";
 import { useWindowSize } from "react-use";
 import Confetti from "react-confetti";
@@ -101,15 +106,15 @@ function App() {
                       : ""}
                     <a
                       className="underline text-blue-500"
-                      href={winner.wikiUrl}
+                      href={convertToWikiLink(winner.name)}
                       target="_blank"
                     >
                       {winner.name}
                     </a>{" "}
-                    drops from{" "}
+                    drops from the{" "}
                     <a
                       className="underline text-blue-500"
-                      href={winner.petSourceWikiUrl}
+                      href={convertToWikiLink(winner.petSource)}
                       target="_blank"
                     >
                       {winner.petSource}
