@@ -1,11 +1,20 @@
 import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
 import { Wheel } from "react-custom-roulette";
-import { BOSS_PETS } from "./utils/pets";
+import { BOSS_PETS, OTHER_PETS, SKILLING_PETS } from "./utils/pets";
 import type { WheelData } from "react-custom-roulette/dist/components/Wheel/types";
 
 function App() {
-  const [spinning, setSpinning] = useState<boolean>(false);
   const [winningNdx, setWinningNdx] = useState<number>(0);
+  const [spinning, setSpinning] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const onSpinClick = (dataLength: number) => {
     if (!spinning) {
@@ -17,9 +26,11 @@ function App() {
 
   const onWheelStop = () => {
     setSpinning(false);
+    setOpen(true);
   };
 
-  const petData: WheelData[] = BOSS_PETS.map((pet) => {
+  const petData = [...BOSS_PETS, ...SKILLING_PETS, ...OTHER_PETS];
+  const wheelData: WheelData[] = petData.map((pet) => {
     return {
       option: pet.name,
       image: {
@@ -30,6 +41,8 @@ function App() {
     };
   });
 
+  const winner = petData[winningNdx];
+
   return (
     <>
       <div className="flex flex-col items-center pt-16 min-h-screen bg-amber-100">
@@ -39,7 +52,7 @@ function App() {
           <Wheel
             mustStartSpinning={spinning}
             prizeNumber={winningNdx}
-            data={petData}
+            data={wheelData}
             backgroundColors={[
               "#1F2056",
               "#601109",
@@ -63,6 +76,44 @@ function App() {
         >
           Spin the Wheel
         </button>
+
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="pb-2">
+                You're hunting the {winner.name}!
+              </DialogTitle>
+              <DialogDescription className="flex flex-col items-center">
+                <img className="max-h-36 pb-2" src={winner.uri} />
+                <div>
+                  <p>
+                    The{" "}
+                    <a
+                      className="underline text-blue-500"
+                      href={winner.wikiUrl}
+                      target="_blank"
+                    >
+                      {winner.name}
+                    </a>{" "}
+                    drops from{" "}
+                    <a
+                      className="underline text-blue-500"
+                      href={winner.petSourceWikiUrl}
+                      target="_blank"
+                    >
+                      {winner.petSource}
+                    </a>
+                    .
+                  </p>
+                  {winner.dropRate && (
+                    <p>It has a {winner.dropRate} chance to drop.</p>
+                  )}
+                  <p>Have fun and may luck be in your favor!</p>
+                </div>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   );
