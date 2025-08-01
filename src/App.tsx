@@ -10,11 +10,15 @@ import {
 import { Wheel } from "react-custom-roulette";
 import { BOSS_PETS, OTHER_PETS, SKILLING_PETS } from "./utils/pets";
 import type { WheelData } from "react-custom-roulette/dist/components/Wheel/types";
+import { useWindowSize } from "react-use";
+import Confetti from "react-confetti";
 
 function App() {
   const [winningNdx, setWinningNdx] = useState<number>(0);
   const [spinning, setSpinning] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
+
+  const { width, height } = useWindowSize();
 
   const onSpinClick = (dataLength: number) => {
     if (!spinning) {
@@ -45,6 +49,7 @@ function App() {
 
   return (
     <>
+      {open && <Confetti width={width} height={height} />}
       <div className="flex flex-col items-center pt-16 min-h-screen bg-amber-100">
         <h1 className="font-semibold text-xl">OSRS Pet Hunt Picker</h1>
         <p className="p-1">Let the wheel decide your fate!</p>
