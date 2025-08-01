@@ -14,7 +14,7 @@ import type { WheelData } from "react-custom-roulette/dist/components/Wheel/type
 function App() {
   const [winningNdx, setWinningNdx] = useState<number>(0);
   const [spinning, setSpinning] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   const onSpinClick = (dataLength: number) => {
     if (!spinning) {
@@ -81,13 +81,19 @@ function App() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle className="pb-2">
-                You're hunting the {winner.name}!
+                You're hunting{" "}
+                {winner.namePrefix ? winner.namePrefix + " " : ""}
+                {winner.name}!
               </DialogTitle>
               <DialogDescription className="flex flex-col items-center">
                 <img className="max-h-36 pb-2" src={winner.uri} />
-                <div>
+                <div className="flex flex-col gap-1">
                   <p>
-                    The{" "}
+                    {winner.namePrefix
+                      ? winner.namePrefix.charAt(0).toUpperCase() +
+                        winner.namePrefix.slice(1) +
+                        " "
+                      : ""}
                     <a
                       className="underline text-blue-500"
                       href={winner.wikiUrl}
@@ -106,7 +112,11 @@ function App() {
                     .
                   </p>
                   {winner.dropRate && (
-                    <p>It has a {winner.dropRate} chance to drop.</p>
+                    <p>
+                      It has a{" "}
+                      <span className="font-bold">{winner.dropRate}</span>{" "}
+                      chance to drop.
+                    </p>
                   )}
                   <p>Have fun and may luck be in your favor!</p>
                 </div>
