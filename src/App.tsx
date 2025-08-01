@@ -8,10 +8,11 @@ function App() {
   const [winningNdx, setWinningNdx] = useState<number>(0);
 
   const onSpinClick = (dataLength: number) => {
-    const ndx = Math.floor(Math.random() * dataLength);
-    setWinningNdx(ndx);
-
-    setSpinning(true);
+    if (!spinning) {
+      const ndx = Math.floor(Math.random() * dataLength);
+      setWinningNdx(ndx);
+      setSpinning(true);
+    }
   };
 
   const onWheelStop = () => {
@@ -21,7 +22,11 @@ function App() {
   const petData: WheelData[] = BOSS_PETS.map((pet) => {
     return {
       option: pet.name,
-      image: { uri: pet.uri, landscape: true, sizeMultiplier: pet.imgSizeMulti},
+      image: {
+        uri: pet.uri,
+        landscape: true,
+        sizeMultiplier: pet.imgSizeMulti,
+      },
     };
   });
 
