@@ -111,7 +111,7 @@ function App() {
                     >
                       {winner.name}
                     </a>{" "}
-                    drops from the{" "}
+                    drops from{" "}
                     <a
                       className="underline text-blue-500"
                       href={convertToWikiLink(winner.petSource)}

@@ -39,8 +39,13 @@ export const BOSS_PETS: PetType[] = [
     dropRate: "1/2,500",
     imgSizeMulti: 0.7,
   },
-  // { name: "Bran", uri: Bran },
-  // { name: "Butch", uri: Butch },
+  {
+    name: "Bran",
+    uri: Bran,
+    petSource: "Branda the Fire Queen",
+    dropRate: "1/3,000",
+  },
+  { name: "Butch", uri: Butch, petSource: "Vardorvis", dropRate: "1/3,000" },
 ];
 
 export const SKILLING_PETS: PetType[] = [];
