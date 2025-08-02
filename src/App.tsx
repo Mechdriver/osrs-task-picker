@@ -8,12 +8,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { Wheel } from "react-custom-roulette";
-import {
-  BOSS_PETS,
-  convertToWikiLink,
-  OTHER_PETS,
-  SKILLING_PETS,
-} from "./utils/pets";
+import { ALL_PETS, convertToWikiLink } from "./utils/pets";
 import type { WheelData } from "react-custom-roulette/dist/components/Wheel/types";
 import { useWindowSize } from "react-use";
 import Confetti from "react-confetti";
@@ -38,7 +33,7 @@ function App() {
     setOpen(true);
   };
 
-  const petData = [...BOSS_PETS, ...SKILLING_PETS, ...OTHER_PETS];
+  const petData = ALL_PETS;
   const wheelData: WheelData[] = petData.map((pet) => {
     return {
       option: pet.name,
